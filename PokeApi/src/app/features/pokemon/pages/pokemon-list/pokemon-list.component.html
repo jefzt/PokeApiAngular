@@ -1,0 +1,37 @@
+<div class="pokemon-list">
+  <div *ngIf="cargando" class="estado estado--carga">
+    <div class="spinner"></div>
+    <p>Cargando Pokémon...</p>
+  </div>
+
+  <div *ngIf="error" class="estado estado--error">
+    <p>⚠️ {{ error }}</p>
+    <button (click)="cargar()">Reintentar</button>
+  </div>
+
+  <div *ngIf="!cargando && !error">
+    <div class="grid">
+      <app-pokemon-card
+        *ngFor="let pokemon of pokemons"
+        [pokemon]="pokemon">
+      </app-pokemon-card>
+    </div>
+
+    <div class="paginacion">
+      <button
+        class="paginacion__btn"
+        (click)="anterior()"
+        [disabled]="paginaActual === 1">
+        ← Anterior
+      </button>
+      <span class="paginacion__info">
+        Página {{ paginaActual }}
+      </span>
+      <button
+        class="paginacion__btn"
+        (click)="siguiente()">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>
